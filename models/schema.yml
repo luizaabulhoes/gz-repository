@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: sales
+    description: all the colums are related to sales.
+    columns:
+      - name: orders_id
+        description:  identifier of the orders.
+        tests:
+          - not_null
+          - unique          
+      - name: products_id
+        description: identifier of the products.
+        tests:
+          - not_null
+          - unique
+
+      - name: turnover
+        description: the results of the turnover of the sales.
+        tests:
+          - not_null
+
+      - name: purchase_cost
+        description: the cost of each sale.
+        tests:
+          - not_null
+
+      - name: margin
+        description: the amount of profit from the sales
+        tests:
+          - not_null
