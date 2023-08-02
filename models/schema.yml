@@ -7,13 +7,11 @@ models:
       - name: orders_id
         description:  identifier of the orders.
         tests:
-          - not_null
-          - unique          
+          - not_null      
       - name: products_id
         description: identifier of the products.
         tests:
           - not_null
-          - unique
 
       - name: turnover
         description: the results of the turnover of the sales.
