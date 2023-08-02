@@ -1,0 +1,4 @@
+SELECT
+ products_id
+ ,purchSE_PRICE as purchase_price
+FROM raw_gz_product 

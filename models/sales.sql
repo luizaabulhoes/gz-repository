@@ -2,23 +2,23 @@ WITH
 
   sales AS (SELECT * FROM `original-frame-392409`.`gz_dev_1`.`stg_sales` )
 
-  ,product AS (SELECT * FROM `gz_raw_data.raw_gz_product`)
+  ,product AS (SELECT * FROM 'stg_product')
 
 SELECT
   s.date_date
   ### Key ###
   ,s.orders_id
-  ,s.pdt_id AS products_id
+  ,s.products_id
   ###########
 	-- qty --
-	,s.quantity AS qty
+	,s.qty
   -- revenue --
-  ,s.revenue AS turnover
+  ,s.turnover
   -- cost --
-  ,CAST(p.purchSE_PRICE AS FLOAT64) AS purchase_price
-,ROUND(s.quantity*CAST(p.purchSE_PRICE AS FLOAT64),2) AS purchase_cost
+  ,CAST(p.purchase_price AS FLOAT64) AS purchase_price
+,ROUND(s.qty*CAST(purchase_price AS FLOAT64),2) AS purchase_cost
 	-- margin --
-    ,s.revenue - s.quantity*CAST(p.purchSE_PRICE AS FLOAT64) AS margin 
- ,ROUND( SAFE_DIVIDE( (s.revenue - s.quantity*CAST(p.purchSE_PRICE AS FLOAT64)) , s.revenue ) , 2) AS margin_percent
+    ,s.turnover - s.qty*CAST(p.purchase_price AS FLOAT64) AS margin 
+ ,ROUND( SAFE_DIVIDE( (s.turnover - s.qty*CAST(p.purchSE_PRICE AS FLOAT64)) , s.turnover ) , 2) AS margin_percent
 FROM sales s
-INNER JOIN product p ON s.pdt_id = p.products_id 
+INNER JOIN product p ON s.products_id = p.products_id 
